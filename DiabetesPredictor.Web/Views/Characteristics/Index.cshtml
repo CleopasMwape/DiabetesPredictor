@@ -1,0 +1,114 @@
+﻿@model IEnumerable<DiabetesPredictor.Web.Characteristics>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Features summary</h1>
+
+<p>
+   
+</p>
+@foreach (var item in Model)
+{
+    
+    <div class="row d-flex justify-content-center">
+
+        <div class="col-8  ">
+        
+
+        <ul class="list-group " style="text-align:start">
+              <li class="list-group-item"><b>Glucose: </b>           @Html.DisplayFor(modelItem => item.Glucose) </li>
+              <li class="list-group-item"> <b>Blood Pressure:    </b>               @Html.DisplayFor(modelItem => item.BloodPressure)</li>
+              <li class="list-group-item"> <b>Blood Pressure: </b>                   @Html.DisplayFor(modelItem => item.Insulin)</li>
+              <li class="list-group-item"> <b>Age: </b>                         @Html.DisplayFor(modelItem => item.Age)</li>
+              <li class="list-group-item"> <b>Skin Thickness:</b>               @Html.DisplayFor(modelItem => item.SkinThickness)</li>
+              <li class="list-group-item"><b>Pregnancies:</b>                  @Html.DisplayFor(modelItem => item.Pregnancies)</li>
+              <li class="list-group-item"><b>BMI: </b>                         @Html.DisplayFor(modelItem => item.Bmi)</li>
+              <li class="list-group-item"><b>Dibetes Pedigree Function:</b>   @Html.DisplayFor(modelItem => item.DiabetesPedigreeFunction)</li>
+
+        </ul>
+
+        </div>
+
+    </div>
+  
+    <br/>
+    <p>
+         <a class="btn btn-success" style="width:100px" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+           
+         <a class="btn btn-danger" style="width:100px" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+    </p>
+
+    <hr />
+    <a class="btn btn-primary" asp-action="Predict" >See Prediction</a>
+}
+
+@*
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pregnancies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Glucose)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BloodPressure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkinThickness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Insulin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bmi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiabetesPedigreeFunction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pregnancies)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Glucose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BloodPressure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkinThickness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Insulin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bmi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiabetesPedigreeFunction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+           
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

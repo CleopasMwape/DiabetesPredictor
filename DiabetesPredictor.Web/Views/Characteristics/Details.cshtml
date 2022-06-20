@@ -1,0 +1,72 @@
+﻿@model DiabetesPredictor.Web.Characteristics
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Characteristics</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pregnancies)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pregnancies)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Glucose)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Glucose)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BloodPressure)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BloodPressure)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SkinThickness)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SkinThickness)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Insulin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Insulin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bmi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bmi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DiabetesPedigreeFunction)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DiabetesPedigreeFunction)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
