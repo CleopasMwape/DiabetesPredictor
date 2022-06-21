@@ -4,17 +4,25 @@
 
 
 @{
-    ViewData["Title"] = "Prediction";
+    ViewData["Title"] = "Prediction Results";
 }
 
-<h1>Prediction</h1>
+<h1>Prediction Results</h1>
 <div class="alert-info ">
 
    
      <div> 
-         <div class="heading">Your Prediction:  </div>  
-         <div class="text-danger"> @ViewBag.Result %  </div>  
-         <div> of getting sick with diabetes</div>
+         <div class="heading">Your Outcome:  </div>  
+        @if(@ViewBag.Result == 100)
+        {
+            <div class="text-danger"> You're most likely sick of diabetes </div>
+        }
+        else
+        {
+             <div class="text-success"> You're not  sick of diabetes </div>
+        }
+
+        
      </div> 
     
 

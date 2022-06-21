@@ -25,9 +25,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                          <li class="nav-item">
+                        @if(User.Identity != null)
+                        {
+                           <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Characteristics" asp-action="Index">Characteristics</a>
-                        </li>
+                        </li>   
+                        }
+                      
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

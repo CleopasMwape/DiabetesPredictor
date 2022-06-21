@@ -25,20 +25,26 @@ namespace DiabetesPredictor.Web
         // GET: Characteristics
         public async Task<IActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var _characteristics = _context.Characteristics.Where(p => p.UserId == userId);
+         
+
+            var _characteristics = await _context.Characteristics
+                .FirstOrDefaultAsync(m => m.UserId == _userId);
 
 
-            if(_characteristics!=null)
+            if (_characteristics != null)
             {
                 var _characteristicList = await _context.Characteristics.ToListAsync();
-                if(_characteristicList.Count>0) 
-                    return View(_characteristicList);   
-                else return RedirectToAction(nameof(Create));
+
+
+                return View(_characteristicList);
             }
 
-            return   Problem("Entity set 'DiabetesPredictorDBContext.Characteristics'  is null.");
+                           
+            
+
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Characteristics/Details/5
@@ -195,10 +201,10 @@ namespace DiabetesPredictor.Web
       
         public async Task<IActionResult> Predict(ModelInput input)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var _characteristics = _context.Characteristics.Where(p => p.UserId == userId);
-
+            var _characteristics = await _context.Characteristics
+                        .FirstOrDefaultAsync(m => m.UserId == _userId);
 
             if (_characteristics != null)
             {

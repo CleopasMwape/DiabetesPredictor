@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContextPool<DiabetesPredictorDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DiabetesPredictorConnectionString")));
+builder.Services.AddDbContext<DiabetesPredictorDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DiabetesPredictorConnectionString")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
