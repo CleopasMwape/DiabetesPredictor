@@ -30,15 +30,14 @@ namespace DiabetesPredictor.Web
          
 
             var _characteristics = await _context.Characteristics
-                .FirstOrDefaultAsync(m => m.UserId == _userId);
+                .Where(m => m.UserId == _userId).ToListAsync();
 
 
-            if (_characteristics != null)
+            if (_characteristics != null && _characteristics.Count>=5)
             {
-                var _characteristicList = await _context.Characteristics.ToListAsync();
 
 
-                return View(_characteristicList);
+                return View(_characteristics);
             }
 
                            
@@ -68,6 +67,7 @@ namespace DiabetesPredictor.Web
         // GET: Characteristics/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -199,35 +199,75 @@ namespace DiabetesPredictor.Web
 
         // POST: Characteristics/Create
       
-        public async Task<IActionResult> Predict(ModelInput input)
+        public async Task<IActionResult> Predict()
         {
+            ModelInput input = new ModelInput();
+
+            List<int> ageList = new List<int>();
+            List<int> bloodPressureList = new List<int>();
+            List<int> skinThicknessList = new List<int>();
+            List<int> pregnancyList = new List<int>();
+            List<double> bmiList = new List<double>();
+            List<double> diabetesPedigreeFunctionList = new List<double>();
+            List<int> glucoseList = new List<int>();
+            List<int> insulinList = new List<int>();
+
+
+
             var _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var _characteristics = await _context.Characteristics
-                        .FirstOrDefaultAsync(m => m.UserId == _userId);
+            var _characteristicsList = await _context.Characteristics
+                        .Where(m => m.UserId == _userId).ToListAsync();
 
-            if (_characteristics != null)
+            if (_characteristicsList != null )
             {
-                var _characteristicList = await _context.Characteristics.ToListAsync();
-                if (_characteristicList.Count > 0)
+                if (_characteristicsList.Count >= 5)
                 {
-                    foreach (Characteristics characteristic in _characteristicList)
+                    foreach (Characteristics characteristic in _characteristicsList)
                     {
-                        input.Age = characteristic.Age;
-                        input.BloodPressure = characteristic.BloodPressure;
-                        input.SkinThickness = characteristic.SkinThickness; 
-                        input.Pregnancies = characteristic.Pregnancies;
-                        input.BMI = (float)characteristic.Bmi ;
-                        input.DiabetesPedigreeFunction = (float)characteristic.DiabetesPedigreeFunction;    
-                        input.Glucose = (float)characteristic.Glucose;
-                        input.Insulin = characteristic.Insulin;
+                        ageList.Add(characteristic.Age);
+                        bloodPressureList.Add(characteristic.BloodPressure);    
+                        skinThicknessList.Add(characteristic.SkinThickness);
+                        pregnancyList.Add(characteristic.Pregnancies);
+                        diabetesPedigreeFunctionList.Add(characteristic.DiabetesPedigreeFunction);
+                        insulinList.Add(characteristic.Insulin);
+                        glucoseList.Add(characteristic.Glucose);
+                        bmiList.Add(characteristic.Bmi);
 
                     }
 
-                    ModelOutput? careerPredictions = MLModel.Predict(input);
-                    var diabetesScore = careerPredictions.Prediction;
+                    //extract trending feature values for each feature
+                    //
 
-                    ViewBag.Result = diabetesScore *100 ;
+                    int pregnancies = MostCommon(pregnancyList);
+                    int age = MostCommon(ageList);
+                    int insulin = MostCommon(insulinList);
+                    int glucose = MostCommon(glucoseList);
+                    double bmi = MostCommon(bmiList);
+                    double diabetesPedigreeFunction = MostCommon(diabetesPedigreeFunctionList);
+                    int bloodPressure = MostCommon(bloodPressureList);
+                    double skinThickness = MostCommon(skinThicknessList);
+
+                    //feed feature values to model input
+                    //
+
+                    
+
+                    input.Age = age;
+                    input.BloodPressure = bloodPressure;
+                    input.SkinThickness = (float)skinThickness;
+                    input.Pregnancies = pregnancies;
+                    input.BMI = (float)bmi;
+                    input.DiabetesPedigreeFunction = (float)diabetesPedigreeFunction;
+                    input.Glucose = (float)glucose;
+                    input.Insulin = insulin;
+
+                    //feed the model input into predict method to get prediction
+                    //
+                    ModelOutput? diabetesPredictions = MLModel.Predict(input);
+                    var diabetesScore = diabetesPredictions.Prediction;
+
+                    ViewBag.Prediction = diabetesScore*100 ;
 
                     return View();
                 }
@@ -236,6 +276,18 @@ namespace DiabetesPredictor.Web
             }
 
             return Problem("Entity set 'DiabetesPredictorDBContext.Characteristics'  is null.");
+        }
+
+        public  int MostCommon(List<int> list)
+        {
+            return list.GroupBy(i => i).OrderByDescending(grp => grp.Count())
+                                               .Select(grp => grp.Key).First();
+        }
+
+        public double MostCommon(List<double> list)
+        {
+            return list.GroupBy(i => i).OrderByDescending(grp => grp.Count())
+                                               .Select(grp => grp.Key).First();
         }
     }
 }

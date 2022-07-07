@@ -5,7 +5,7 @@
 }
 
 <h1>Features summary</h1>
-
+<hr />
 <p>
    
 </p>
@@ -15,7 +15,7 @@
     <div class="row d-flex justify-content-center">
 
         <div class="col-8  ">
-        
+        <h3>Set @(Model.ToList().IndexOf(item)+1)</h3>
 
         <ul class="list-group " style="text-align:start">
               <li class="list-group-item"><b>Glucose: </b>           @Html.DisplayFor(modelItem => item.Glucose) </li>
@@ -41,8 +41,10 @@
     </p>
 
     <hr />
-    <a class="btn btn-primary" asp-action="Predict" >See Prediction</a>
 }
+
+    <a class="btn btn-primary" asp-action="Predict" >See Prediction</a>
+
 
 @*
 <table class="table">

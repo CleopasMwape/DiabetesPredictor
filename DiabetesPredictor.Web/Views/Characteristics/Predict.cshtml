@@ -12,15 +12,16 @@
 
    
      <div> 
-         <div class="heading">Your Outcome:  </div>  
-        @if(@ViewBag.Result == 100)
+         <h3 class="heading">Your Outcome:  </h3>  <br />
+        @if(@ViewBag.Prediction == 100)
         {
-            <div class="text-danger"> You're most likely sick of diabetes </div>
+            <h4 class="text-danger"> You're sick of diabetes </h4><br />
         }
         else
         {
              <div class="text-success"> You're not  sick of diabetes </div>
         }
+
 
         
      </div> 
