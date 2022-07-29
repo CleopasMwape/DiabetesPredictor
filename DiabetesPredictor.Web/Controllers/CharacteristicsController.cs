@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using static DiabatesPredictor.MLModel;
 using DiabatesPredictor;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DiabetesPredictor.Web
 {
+    [Authorize]
     public class CharacteristicsController : Controller
     {
         private readonly DiabetesPredictorDBContext _context;

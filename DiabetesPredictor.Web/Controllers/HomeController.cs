@@ -1,9 +1,11 @@
 ﻿using DiabetesPredictor.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace DiabetesPredictor.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -12,12 +14,12 @@ namespace DiabetesPredictor.Web.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

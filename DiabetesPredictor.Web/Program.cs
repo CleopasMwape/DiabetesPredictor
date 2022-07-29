@@ -1,5 +1,5 @@
 using DiabetesPredictor.Web;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +11,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<DiabetesPredictorDBContext>();;
 
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+//        .RequireAuthenticatedUser()
+//        .Build();
+//});
+
 // Add services to the container.
 //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -20,6 +27,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+
+
+
+
+
+//builder.Services.AddControllersWithViews().AddRazorPagesOptions(options =>
+//{
+//    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
+//});
 
 var app = builder.Build();
 
@@ -39,13 +56,16 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
+
 app.MapRazorPages();
+
 
 app.Run();
