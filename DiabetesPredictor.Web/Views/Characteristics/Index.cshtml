@@ -4,7 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Features summary</h1>
+<div class=" row d-flex justify-content-center">
+
+    <h1 style="text-align:center">Features summary</h1>
 <hr />
 <p>
    
@@ -15,7 +17,7 @@
     <div class="row d-flex justify-content-center">
 
         <div class="col-8  ">
-        <h3>Set @(Model.ToList().IndexOf(item)+1)</h3>
+        <h3 style="text-align:center">Set @(Model.ToList().IndexOf(item)+1)</h3>
 
         <ul class="list-group " style="text-align:start">
               <li class="list-group-item"><b>Glucose: </b>           @Html.DisplayFor(modelItem => item.Glucose) </li>
@@ -29,21 +31,25 @@
 
         </ul>
 
+   
+  
+        <br/>
+        <p>
+             <a class="btn btn-success" style="width:100px" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+           
+             <a class="btn btn-danger" style="width:100px" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </p>
         </div>
 
     </div>
-  
-    <br/>
-    <p>
-         <a class="btn btn-success" style="width:100px" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-           
-         <a class="btn btn-danger" style="width:100px" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </p>
 
     <hr />
 }
 
     <a class="btn btn-primary" asp-action="Predict" >See Prediction</a>
+
+</div>
+
 
 
 @*
