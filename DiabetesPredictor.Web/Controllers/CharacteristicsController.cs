@@ -262,9 +262,11 @@ namespace DiabetesPredictor.Web
                     //feed the model input into predict method to get prediction
                     //
                     ModelOutput? diabetesPredictions = MLModel.Predict(input);
-                    var diabetesScore = diabetesPredictions.Prediction;
+                    var predictedValue = diabetesPredictions.Prediction;
 
-                    ViewBag.Prediction = diabetesScore*100 ;
+                    ViewBag.Prediction = predictedValue*100 ;
+                    var scoreList = diabetesPredictions.Score.ToList();
+                    ViewBag.Confidence = scoreList.Max()*100;
 
                     return View();
                 }

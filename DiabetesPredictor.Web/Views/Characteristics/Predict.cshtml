@@ -22,13 +22,14 @@
                            <th>
                                 <h3 class="text-danger"> You're sick of diabetes </h3><br>
                                   <h4 class="text-danger">Seek medical advice as soon as possible</h4>
+                                   <h5 class="text-primary">Prediction confidence: @ViewBag.Confidence</h5>
                            </th>
                         }
                         else
                         {
                             <th >
                                   <h3 class="text-success"> You're not  sick of diabetes </h3>
-                                
+                                    <h6 class="text-primary">(Prediction confidence: @ViewBag.Confidence %)</h6>
                             </th>
            
                         }
